@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Numeric Sequence Calculator</title>
+    <meta name="description" content="">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="Content/bootstrap.min.css">
+    <link rel="stylesheet" href="Content/style.css" />
+
+    <script src="Scripts/angular.js"></script>
+    <script src="Scripts/angular-messages.min.js"></script>
+
+    <script src="WebApp/app/Controllers.js"></script>
+    <script src="WebApp/app/Services.js"></script>
+</head>
+<body ng-app="numericSequences">
+    <br />
+    <div class="container" ng-controller="SequencesController as sequencesCtrl">
+        <div class="panel panel-default">
+            <div class="panel-heading panel-heading-custom">Numeric Sequence Calculator</div>
+            <div class="panel-body">
+                <form name="sequencesForm" novalidate autocomplete="off">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                <label for="input" class="label label-primary">Number</label>
+                                <input type="text" class="form-control" name="input" id="input" placeholder="Number for generating Sequences"
+                                       ng-model="input" required ng-pattern="/^[0-9]+$/">
+
+                                <div ng-messages="sequencesForm.input.$error" ng-if="sequencesForm.$submitted || sequencesForm.input.$dirty">
+                                    <div ng-message="required" class="text-danger">Number is required</div>
+                                    <div ng-message="pattern" class="text-danger">Number must consist of only Positive Whole Number</div>
+                                    <div ng-message="ValidInteger" class="text-danger">Largest possible value is 2,147,483,646</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary" ng-click="submitForm()">Generate Sequences</button>
+                            </div>
+                        </div>
+                    </div>                    
+                    <div class="row">
+                        <div class="col-xs-11">
+                                <table class="table table-bordered table-striped">
+                                    <tr>
+                                        <td><strong>All numbers up to and including the number entered</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="is-breakable">
+                                            {{ AllNumbers }}
+                                            <div class="alert alert-danger" ng-show="errorAll" role="alert">{{errorAll}}</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>All odd numbers up to and including the number entered</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="is-breakable">
+                                            {{ AllOddNumbers }}
+                                            <div class="alert alert-danger" ng-show="errorOdd" role="alert">{{errorOdd}}</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>All even numbers up to and including the number entered</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="is-breakable">
+                                            {{ AllEvenNumbers }}
+                                            <div class="alert alert-danger" ng-show="errorEven" role="alert">{{errorEven}}</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>All numbers up to and including the number entered, with,</strong>
+                                            <br />multiple of 3 replaced with C,
+                                            <br />multiple of 5 replaced with E,
+                                            <br />multiple of both 3 and 5 replaced wit Z
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="is-breakable">
+                                            {{ CEZSequence }}
+                                            <div class="alert alert-danger" ng-show="errorCEZ" role="alert">{{errorCEZ}}</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>All fibonacci numbers up to and including the number entered</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="is-breakable">
+                                            {{ FibonacciNumbers }}
+                                            <div class="alert alert-danger" ng-show="errorFibonacci" role="alert">{{errorFibonacci}}</div>
+                                        </td>
+                                    </tr>
+                                </table>
+                        </div>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
